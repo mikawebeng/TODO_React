@@ -1,24 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ColorfulMessage from "./components/ColorfulMessage";
 
 const App = () => {
   const [num, setNum] = useState(0);
-  const [show, setShow] = useState(true);
+  const [faseShowFlag, setfaseShowFlag] = useState(true);
 
   const onClickButton = () => {
     setNum(num + 1);
   };
   const onClickShowFlag = () => {
-    setShow(!show);
+    setfaseShowFlag(!faseShowFlag);
   };
 
-  if (num > 0) {
-    if (num / 3 === 0) {
-      show || setShow(true);
-    } else {
-      show && setShow(false);
+  useEffect(() => {
+    if (num > 0) {
+      if (num / 3 === 0) {
+        faseShowFlag || setfaseShowFlag(true);
+      } else {
+        faseShowFlag && setfaseShowFlag(false);
+      }
     }
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [num]);
 
   return (
     <>
@@ -27,9 +30,9 @@ const App = () => {
       <ColorfulMessage color="pink">おはようございます</ColorfulMessage>
       <button onClick={onClickButton}>カウントアップ</button>
       <br />
-      <p>{num}</p>
       <button onClick={onClickShowFlag}>on/off</button>
-      {setShow && <p>(^^♪</p>}
+      <p>{num}</p>
+      {setfaseShowFlag && <p>(^^♪</p>}
     </>
   );
 };
